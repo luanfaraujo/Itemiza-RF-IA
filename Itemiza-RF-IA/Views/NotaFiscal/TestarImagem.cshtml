@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Analisar nota fiscal";
+}
+
+<h1>Analisar nota fiscal</h1>
+
+<div id="formulario">
+    <form asp-controller="NotaFiscal"
+          asp-action="TestarImagem"
+          method="post"
+          enctype="multipart/form-data">
+
+        <label for="arquivo">Selecione uma imagem:</label>
+        <input type="file"
+               id="arquivo"
+               name="arquivo"
+               accept="image/jpeg,image/png,image/webp"
+               required />
+
+        <button type="submit" id="botaoAnalisar">
+            Analisar imagem
+        </button>
+    </form>
+</div>
+
+<div id="analisando" style="display: none; margin-top: 24px;">
+    <h2>Analisando sua nota fiscal...</h2>
+    <p>
+        Estamos identificando o estabelecimento e os produtos.
+        Isso pode levar alguns segundos. Aguarde, por favor.
+    </p>
+
+    <div class="spinner"></div>
+</div>
+
+<style>
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border: 5px solid #ddd;
+        border-top: 5px solid #2563eb;
+        border-radius: 50%;
+        animation: girar 1s linear infinite;
+    }
+
+    @@keyframes girar {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<script>
+    document.querySelector("form").addEventListener("submit", function () {
+        document.getElementById("formulario").style.display = "none";
+        document.getElementById("analisando").style.display = "block";
+    });
+</script>
