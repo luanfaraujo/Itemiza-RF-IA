@@ -1,10 +1,18 @@
 // Mudar o namespace depois - quando juntar tudo, "Itemiza" vai ser melhor
 using Itemiza_RF_IA.Services;
+using Itemiza_RF_IA.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<ItemizaDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("ItemizaConnection")
+    )
+);
 
 builder.Services.AddScoped<GeminiService>();
 
